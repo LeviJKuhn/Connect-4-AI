@@ -78,7 +78,6 @@ void Board::PrintBoard()
         }
         cout << endl;
     }
-    cout << "Player Turn: " << turn << endl;
 }
 
 
@@ -106,7 +105,7 @@ bool Board::CheckWinHorizontal(int row, int col)
 
 bool Board::CheckWinVertical(int row, int col){
     int player = board[row][col];
-    int count = 0;
+    int count = 1;
     int index = 1;
     while ((row-index > 0) && board[row-index][col] == player)
     {
@@ -127,7 +126,7 @@ bool Board::CheckWinVertical(int row, int col){
 bool Board::CheckWinDiags(int row, int col)
 {
     int player = board[row][col];
-    int count = 0;
+    int count = 1;
     int index = 1;
     while ((col-index > 0) && (row-index > 0) && board[row-index][col-index] == player)
     {
