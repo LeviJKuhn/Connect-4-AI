@@ -12,11 +12,6 @@ using namespace std;
 
 class Board {
 public:
-    int board[6][7];
-    int turn;
-    const int playerOne = 1;
-    const int playerTwo = 2;
-
     Board();
     Board(const Board &rhs);
     Board& operator=(const Board &rhs);
@@ -29,6 +24,11 @@ public:
     void PrintBoard();
 
 private:
+    int board[6][7];
+    int turn;
+    const int playerOne = 1;
+    const int playerTwo = 2;
+
     bool CheckWinHorizontal(int row, int col);
     bool CheckWinVertical(int row, int col);
     bool CheckWinDiags(int row, int col);
