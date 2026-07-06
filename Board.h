@@ -5,30 +5,33 @@
 #ifndef CONNECT_4_AI_BOARD_H
 #define CONNECT_4_AI_BOARD_H
 
+#include <stdexcept>
+#include <iostream>
 
+using namespace std;
 
 class Board {
 public:
-    int** board;
+    int board[6][7];
     int turn;
-
     const int playerOne = 1;
     const int playerTwo = 2;
 
     Board();
     Board(const Board &rhs);
-    Board &operator=(const Board &rhs);
+    Board& operator=(const Board &rhs);
     ~Board();
+    void copyBoard(const Board &rhs);
 
-    void Move(int row);
-    bool CheckWin();
+    bool Move(int col);
+    bool CheckWin(int row, int col);
     void Reset();
+    void PrintBoard();
 
 private:
-    bool CheckWinHorizontal();
-    bool CheckWinVertical();
-    bool CheckWinDiags();
-
+    bool CheckWinHorizontal(int row, int col);
+    bool CheckWinVertical(int row, int col);
+    bool CheckWinDiags(int row, int col);
 };
 
 

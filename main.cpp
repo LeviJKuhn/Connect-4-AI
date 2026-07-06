@@ -3,6 +3,7 @@
 //
 
 
+#include "Board.h"
 
 int main()
 {
@@ -11,5 +12,11 @@ int main()
      *
      * Test Constructor Injection + Postponed Instantiation
      */
+
+    Board board;
+    for (int i = 1; i <= 7; i++)
+        board.Move(i);
+    board.PrintBoard();
+
     return 0;
 }
