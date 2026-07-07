@@ -16,12 +16,15 @@ public:
     Board(const Board &rhs);
     Board& operator=(const Board &rhs);
     ~Board();
-    void copyBoard(const Board &rhs);
 
     bool Move(int col);
-    bool CheckWin(int row, int col);
+    bool IsLegalMove(int col) const;
+
+    bool IsBoardFull() const;
+    bool CheckWin(int row, int col) const;
+
     void Reset();
-    void PrintBoard();
+    void PrintBoard() const;
 
 private:
     int board[6][7];
@@ -29,9 +32,11 @@ private:
     const int playerOne = 1;
     const int playerTwo = 2;
 
-    bool CheckWinHorizontal(int row, int col);
-    bool CheckWinVertical(int row, int col);
-    bool CheckWinDiags(int row, int col);
+    void copyBoard(const Board &rhs);
+
+    bool CheckWinHorizontal(int row, int col) const;
+    bool CheckWinVertical(int row, int col) const;
+    bool CheckWinDiags(int row, int col) const;
 };
 
 

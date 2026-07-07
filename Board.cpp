@@ -22,20 +22,16 @@ Board& Board::operator=(const Board &rhs)
     return *this;
 }
 
-Board::~Board(){}
+Board::~Board() = default;
 
-void Board::copyBoard(const Board &rhs)
-{
-    turn = rhs.turn;
-    for (int i = 0; i < 6; i++)
-        for (int j = 0; j < 7; j++)
-            board[i][j] = rhs.board[i][j];
-}
+
 
 // PRE-CONDITION: Col selected must not be full
 bool Board::Move(int col)
 {
-    if (col < 1 || col > 7) throw invalid_argument("Coloumn does not exist");
+    if (col < 1 || col > 7) throw invalid_argument("Coloumn does not exist.");
+    if (!IsLegalMove(col)) throw invalid_argument("Coloumn is full.");
+
     col--;
     for (int i = 5; i >= 0 ; i--)
     {
@@ -52,7 +48,27 @@ bool Board::Move(int col)
     throw out_of_range("The coloumn is full");
 }
 
-bool Board::CheckWin(int row, int col)
+bool Board::IsLegalMove(int col) const
+{
+    if (col < 1 || col > 7) throw invalid_argument("Coloumn does not exist");
+    col--;
+    if (board[0][col] == 0)
+        return true;
+    return false;
+}
+
+
+bool Board::IsBoardFull() const
+{
+    for (int i = 0; i < 6; i++)
+    {
+        if (IsLegalMove(i))
+            return false;
+    }
+    return true;
+}
+
+bool Board::CheckWin(int row, int col) const
 {
     if (CheckWinHorizontal(row, col) || CheckWinVertical(row, col) || CheckWinDiags(row, col))
         return true;
@@ -67,7 +83,7 @@ void Board::Reset()
             board[i][j] = 0;
 }
 
-void Board::PrintBoard()
+void Board::PrintBoard() const
 {
     for (int i = 0; i < 6; i++)
     {
@@ -82,7 +98,15 @@ void Board::PrintBoard()
 
 
 // Private
-bool Board::CheckWinHorizontal(int row, int col)
+void Board::copyBoard(const Board &rhs)
+{
+    turn = rhs.turn;
+    for (int i = 0; i < 6; i++)
+        for (int j = 0; j < 7; j++)
+            board[i][j] = rhs.board[i][j];
+}
+
+bool Board::CheckWinHorizontal(int row, int col) const
 {
     int player = board[row][col];
     int count = 1;
@@ -103,7 +127,8 @@ bool Board::CheckWinHorizontal(int row, int col)
     return false;
 }
 
-bool Board::CheckWinVertical(int row, int col){
+bool Board::CheckWinVertical(int row, int col) const
+{
     int player = board[row][col];
     int count = 1;
     int index = 1;
@@ -123,7 +148,7 @@ bool Board::CheckWinVertical(int row, int col){
     return false;
 }
 
-bool Board::CheckWinDiags(int row, int col)
+bool Board::CheckWinDiags(int row, int col) const
 {
     int player = board[row][col];
     int count = 1;
